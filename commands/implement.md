@@ -49,7 +49,7 @@ This is a specialized implementation mode for AI coding assistants that executes
 ### Step 1: Read Planning Documents
 Before any implementation begins, thoroughly read and understand:
 
-1. **`/ai-flow/<feature_name>/plan.md`**:
+1. **`/ai-flows/<feature_name>/plan.md`**:
    - Understand the complete feature specification
    - Note all phases, if applicable
    - Understand architectural decisions
@@ -58,13 +58,13 @@ Before any implementation begins, thoroughly read and understand:
    - Note testing requirements
    - Understand edge cases and error handling
 
-2. **`/ai-flow/<feature_name>/plan-questions.md`**:
+2. **`/ai-flows/<feature_name>/plan-questions.md`**:
    - Read all questions and their answers
    - Understand requirements clarifications
    - Note any specific decisions made
    - Understand constraints and preferences
 
-3. **`/ai-flow/<feature_name>/todo.md`**:
+3. **`/ai-flows/<feature_name>/todo.md`**:
    - Read ALL todos
    - Understand task breakdown
    - Identify dependencies between todos
@@ -383,7 +383,7 @@ Before considering implementation complete:
 
 ### Step 1: Initialize
 1. Read feature name from context or path
-2. Verify `ai-flow/<feature_name>/` directory exists
+2. Verify `ai-flows/<feature_name>/` directory exists
 3. Confirm all required documents exist
 4. Read all planning documents completely
 
@@ -436,9 +436,9 @@ Before considering implementation complete:
 User: "Implement the user-authentication feature"
 
 Implementation Agent:
-1. Reads ai-flow/user-authentication/plan.md
-2. Reads ai-flow/user-authentication/plan-questions.md
-3. Reads ai-flow/user-authentication/todo.md
+1. Reads ai-flows/user-authentication/plan.md
+2. Reads ai-flows/user-authentication/plan-questions.md
+3. Reads ai-flows/user-authentication/todo.md
 4. Analyzes codebase for auth patterns
 5. Checks if any auth code already exists
 6. Finds partial implementation of user model

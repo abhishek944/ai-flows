@@ -49,7 +49,7 @@ This is a specialized planning mode for AI coding assistants that ensures thorou
 All planning artifacts must be organized as follows:
 
 ```
-ai-flow/
+ai-flows/
   <feature_name>/
     plan.md              # The detailed implementation plan (with phases if needed)
     plan-questions.md    # All questions asked and answers received
@@ -73,7 +73,7 @@ This plan command can be invoked in three scenarios. You MUST determine which sc
 
 ### Scenario A: New Plan Creation
 **Indicators:**
-- No existing `ai-flow/<feature_name>/` directory
+- No existing `ai-flows/<feature_name>/` directory
 - User explicitly requests a new plan
 - No existing plan.md file found
 
@@ -94,24 +94,24 @@ This plan command can be invoked in three scenarios. You MUST determine which sc
    - Add "User Reply: __" section after each question
    - Stay within the complexity-based caps (5/15/25 questions); consolidate before exceeding the limit
    - Do not ask about testing, deployment, documentation updates, or future enhancements
-   - Save questions to `ai-flow/<feature_name>/plan-questions.md`
+   - Save questions to `ai-flows/<feature_name>/plan-questions.md`
    - Present questions to user and wait for them to fill in "User Reply" sections
 
 4. **Plan Creation** (after user fills in answers):
    - Read user-provided answers from "User Reply" sections in `plan-questions.md`
-   - Create directory: `ai-flow/<feature_name>/` (if not already created)
+   - Create directory: `ai-flows/<feature_name>/` (if not already created)
    - Assess feature complexity and determine if phase breakdown is needed
-   - Create detailed plan in `ai-flow/<feature_name>/plan.md` based on user answers
+   - Create detailed plan in `ai-flows/<feature_name>/plan.md` based on user answers
    - Include FEATURE header at the top
    - Keep plan text within the appropriate line cap (100/200/300) and never include code snippets
    - Focus strictly on implementation scope—exclude testing, deployment, documentation updates, and future enhancements
    - If feature is large/complex, break into multiple phases with detailed plan for each
    - Ensure plan is exhaustive and actionable
-   - Extract implementation todos to `ai-flow/<feature_name>/todo.md`
+   - Extract implementation todos to `ai-flows/<feature_name>/todo.md`
 
 ### Scenario B: Questions Answered
 **Indicators:**
-- `ai-flow/<feature_name>/plan-questions.md` exists with unanswered questions
+- `ai-flows/<feature_name>/plan-questions.md` exists with unanswered questions
 - User has filled in "User Reply" sections in the questions file
 - `plan.md` may or may not exist yet
 
@@ -143,13 +143,13 @@ This plan command can be invoked in three scenarios. You MUST determine which sc
 
 ### Scenario C: Plan Review Comments Provided
 **Indicators:**
-- `ai-flow/<feature_name>/review-plan.md` exists with comments
+- `ai-flows/<feature_name>/review-plan.md` exists with comments
 - User has reviewed the plan and provided feedback
 - Plan needs to be refined based on review
 
 **Workflow:**
 1. **Read Review Comments**:
-   - Read `ai-flow/<feature_name>/review-plan.md`
+   - Read `ai-flows/<feature_name>/review-plan.md`
    - Understand all feedback and requested changes
    - Identify areas that need clarification or modification
 
@@ -412,7 +412,7 @@ If not using phases, or for a complete overview:
 
 ### Step 1: Determine Scenario
 When plan mode is invoked:
-1. Check if `ai-flow/` directory exists, if not create it
+1. Check if `ai-flows/` directory exists, if not create it
 2. Check for existing feature directories
 3. Determine which scenario (A, B, or C) applies
 4. Follow the appropriate workflow
@@ -494,7 +494,7 @@ Before finalizing a plan, ensure:
 User: "Plan a user authentication feature"
 
 Assistant:
-1. Creates ai-flow/user-authentication/ directory
+1. Creates ai-flows/user-authentication/ directory
 2. Analyzes codebase for authentication patterns, user models, etc.
 3. Generates comprehensive questions in plan-questions.md
 4. Presents questions to user

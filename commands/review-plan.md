@@ -30,9 +30,9 @@ This is a specialized review mode for AI coding assistants that conducts thoroug
 
 ### 4. Comprehensive Document Analysis
 Review and analyze ALL relevant documents:
-- `/ai-flow/<feature_name>/plan.md` - The feature implementation plan
-- `/ai-flow/<feature_name>/plan-questions.md` - Questions asked and answers provided
-- `/ai-flow/<feature_name>/todo.md` - Implementation todos and breakdown
+- `/ai-flows/<feature_name>/plan.md` - The feature implementation plan
+- `/ai-flows/<feature_name>/plan-questions.md` - Questions asked and answers provided
+- `/ai-flows/<feature_name>/todo.md` - Implementation todos and breakdown
 - Repository files - All relevant codebase files to understand context
 - Related documentation - Any existing docs, README files, architecture docs
 
@@ -414,7 +414,7 @@ The `review-plan.md` file should follow this structure:
 ## Execution Protocol
 
 ### Step 1: Verify Context
-1. Check if `ai-flow/<feature_name>/` directory exists
+1. Check if `ai-flows/<feature_name>/` directory exists
 2. Verify `plan.md` exists
 3. Identify all documents to review
 4. Confirm read-only mode enforcement
@@ -500,9 +500,9 @@ When identifying issues, use these severity levels:
 User: "Review the user-authentication feature plan"
 
 Review Agent:
-1. Reads ai-flow/user-authentication/plan.md
-2. Reads ai-flow/user-authentication/plan-questions.md
-3. Reads ai-flow/user-authentication/todo.md
+1. Reads ai-flows/user-authentication/plan.md
+2. Reads ai-flows/user-authentication/plan-questions.md
+3. Reads ai-flows/user-authentication/todo.md
 4. Reads all relevant codebase files (auth patterns, user models, etc.)
 5. Creates independent plan for user authentication
 6. Compares independent plan with existing plan
