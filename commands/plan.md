@@ -1,7 +1,7 @@
 # PLAN MODE - Comprehensive Feature Planning System
 
 ## Overview
-This is a specialized planning mode for AI coding assistants that ensures thorough analysis, exhaustive clarification, and detailed documentation before any implementation begins. The system operates in read-only mode to preserve codebase integrity.
+This is a specialized planning mode for AI coding assistants that ensures thorough analysis, exhaustive clarification, and detailed documentation before any implementation begins. The system operates in read-only mode for the codebase (bloom-* folders) to preserve codebase integrity, but can write and update planning artifacts in the ai-flows/ folder.
 
 ## Core Principles
 
@@ -11,11 +11,20 @@ This is a specialized planning mode for AI coding assistants that ensures thorou
 - **Context**: Understand how files interact with each other, data flows, and system boundaries
 - **Documentation**: Review existing documentation, comments, and code patterns to understand the project's philosophy
 
-### 2. Strict Read-Only Mode
-- **NO EDITS ALLOWED**: Under no circumstances should any file be modified during planning phase
-- **NO FILE CREATION**: Do not create any files except as specified in the planning workflow
-- **ONLY READING**: Only read files to gather information and understand the codebase
-- **PRESERVE INTEGRITY**: Maintain the current state of all files without any changes
+### 2. Strict Read-Only Mode for Codebase
+- **READ-ONLY FOR BLOOM-* FOLDERS**: Under no circumstances should any file in `bloom-backend/`, `bloom-ui/`, or `bloom-admin/` be modified during planning phase
+- **NO CODEBASE FILE CREATION**: Do not create any files in bloom-* folders
+- **ONLY READING FROM CODEBASE**: Only read files from bloom-* folders to gather information and understand the codebase
+- **PRESERVE CODEBASE INTEGRITY**: Maintain the current state of all files in bloom-* folders without any changes
+
+### 2a. Write Access for Planning Artifacts
+- **WRITE ALLOWED IN AI-FLOWS/**: Planning artifacts can be written and updated in `ai-flows/<feature_name>/` folder
+- **ALLOWED OPERATIONS**: Create, read, and update files in ai-flows/ folder including:
+  - `plan.md` - The detailed implementation plan
+  - `plan-questions.md` - Questions and answers
+  - `review-plan.md` - Review comments and feedback
+  - `todo.md` - Implementation todos
+- **DIRECTORY CREATION**: Can create `ai-flows/<feature_name>/` directory structure as needed
 
 ### 3. Exhaustive Questioning Protocol
 - **Before Planning**: Ask comprehensive questions to clarify every aspect
@@ -57,6 +66,11 @@ ai-flows/
     todo.md              # Implementation todos extracted from the plan
 ```
 
+**Important**: 
+- All planning files are written to `ai-flows/<feature_name>/` folder
+- Never modify files in `bloom-backend/`, `bloom-ui/`, or `bloom-admin/` folders during planning
+- Only read from bloom-* folders to understand the codebase structure and patterns
+
 ## Content Constraints
 
 - **No Code Snippets**: `plan.md` and `todo.md` must never include code snippets, pseudo-code, or literal API payloads—describe intent and behavior only.
@@ -84,9 +98,10 @@ This plan command can be invoked in three scenarios. You MUST determine which sc
    - Validate feature name follows naming conventions
 
 2. **Initial Discovery**:
-   - Search for and read all relevant files in the codebase
+   - **READ ONLY FROM BLOOM-* FOLDERS**: Search for and read all relevant files in `bloom-backend/`, `bloom-ui/`, and `bloom-admin/`
    - Understand the project structure, tech stack, and patterns
    - Identify areas that will be affected by the feature
+   - **DO NOT MODIFY**: Only read files, never edit or create files in bloom-* folders
 
 3. **Question Generation**:
    - Generate comprehensive questions covering all aspects
@@ -94,20 +109,20 @@ This plan command can be invoked in three scenarios. You MUST determine which sc
    - Add "User Reply: __" section after each question
    - Stay within the complexity-based caps (5/15/25 questions); consolidate before exceeding the limit
    - Do not ask about testing, deployment, documentation updates, or future enhancements
-   - Save questions to `ai-flows/<feature_name>/plan-questions.md`
+   - **WRITE TO AI-FLOWS/**: Save questions to `ai-flows/<feature_name>/plan-questions.md`
    - Present questions to user and wait for them to fill in "User Reply" sections
 
 4. **Plan Creation** (after user fills in answers):
    - Read user-provided answers from "User Reply" sections in `plan-questions.md`
-   - Create directory: `ai-flows/<feature_name>/` (if not already created)
+   - **WRITE TO AI-FLOWS/**: Create directory: `ai-flows/<feature_name>/` (if not already created)
    - Assess feature complexity and determine if phase breakdown is needed
-   - Create detailed plan in `ai-flows/<feature_name>/plan.md` based on user answers
+   - **WRITE TO AI-FLOWS/**: Create detailed plan in `ai-flows/<feature_name>/plan.md` based on user answers
    - Include FEATURE header at the top
    - Keep plan text within the appropriate line cap (100/200/300) and never include code snippets
    - Focus strictly on implementation scope—exclude testing, deployment, documentation updates, and future enhancements
    - If feature is large/complex, break into multiple phases with detailed plan for each
    - Ensure plan is exhaustive and actionable
-   - Extract implementation todos to `ai-flows/<feature_name>/todo.md`
+   - **WRITE TO AI-FLOWS/**: Extract implementation todos to `ai-flows/<feature_name>/todo.md`
 
 ### Scenario B: Questions Answered
 **Indicators:**
@@ -117,9 +132,9 @@ This plan command can be invoked in three scenarios. You MUST determine which sc
 
 **Workflow:**
 1. **Read Context**:
-   - Read existing `plan-questions.md` to see previous questions
+   - **READ FROM AI-FLOWS/**: Read existing `ai-flows/<feature_name>/plan-questions.md` to see previous questions
    - Identify which questions have "User Reply" sections filled in by the user
-   - Read any existing `plan.md` if it exists
+   - **READ FROM AI-FLOWS/**: Read any existing `ai-flows/<feature_name>/plan.md` if it exists
 
 2. **Process User Answers**:
    - Extract answers from "User Reply" sections that the user has filled in
@@ -128,18 +143,18 @@ This plan command can be invoked in three scenarios. You MUST determine which sc
 
 3. **Generate Additional Questions** (if needed):
    - Based on user answers, generate follow-up questions if anything is unclear
-   - Add new questions to `plan-questions.md` with "User Reply: __" placeholders
+   - **WRITE TO AI-FLOWS/**: Add new questions to `ai-flows/<feature_name>/plan-questions.md` with "User Reply: __" placeholders
    - Include multiple choice options where applicable
    - Stay within the complexity-based question caps (5/15/25) and retire lower-priority questions if needed
    - Avoid topics covering testing, deployment, documentation updates, or future enhancements
    - Present new questions and wait if clarification needed
 
 4. **Create or Update Plan**:
-   - If plan doesn't exist and all critical questions have user answers, create `plan.md`
-   - If plan exists, update it with new information from user answers
+   - **WRITE TO AI-FLOWS/**: If plan doesn't exist and all critical questions have user answers, create `ai-flows/<feature_name>/plan.md`
+   - **WRITE TO AI-FLOWS/**: If plan exists, update `ai-flows/<feature_name>/plan.md` with new information from user answers
    - Ensure plan reflects all clarifications from user responses
    - Confirm the plan respects the line cap (100/200/300) and contains no code snippets or out-of-scope items
-   - Update `todo.md` if plan structure changed (phases added/modified)
+   - **WRITE TO AI-FLOWS/**: Update `ai-flows/<feature_name>/todo.md` if plan structure changed (phases added/modified)
 
 ### Scenario C: Plan Review Comments Provided
 **Indicators:**
@@ -149,12 +164,12 @@ This plan command can be invoked in three scenarios. You MUST determine which sc
 
 **Workflow:**
 1. **Read Review Comments**:
-   - Read `ai-flows/<feature_name>/review-plan.md`
+   - **READ FROM AI-FLOWS/**: Read `ai-flows/<feature_name>/review-plan.md`
    - Understand all feedback and requested changes
    - Identify areas that need clarification or modification
 
 2. **Read Current Plan**:
-   - Read existing `plan.md`
+   - **READ FROM AI-FLOWS/**: Read existing `ai-flows/<feature_name>/plan.md`
    - Understand current plan structure and content
 
 3. **Generate Questions** (if needed):
@@ -163,15 +178,15 @@ This plan command can be invoked in three scenarios. You MUST determine which sc
    - Add "User Reply: __" section after each question
    - Stay within the 5/15/25 question caps—merge or drop lower-priority prompts before exceeding them
    - Do not ask about testing, deployment, documentation updates, or future enhancements
-   - Add to `plan-questions.md`
+   - **WRITE TO AI-FLOWS/**: Add to `ai-flows/<feature_name>/plan-questions.md`
    - Ask user to fill in "User Reply" sections for clarification
 
 4. **Update Plan**:
-   - Modify `plan.md` based on review comments
+   - **WRITE TO AI-FLOWS/**: Modify `ai-flows/<feature_name>/plan.md` based on review comments
    - Address all feedback points
    - Ensure plan reflects all requested changes
    - Maintain detailed structure (including phases if applicable) while staying within the line cap and excluding code snippets or out-of-scope topics
-   - Update `todo.md` to reflect any changes in implementation steps
+   - **WRITE TO AI-FLOWS/**: Update `ai-flows/<feature_name>/todo.md` to reflect any changes in implementation steps
 
 ## Detailed Plan Structure
 
@@ -412,20 +427,21 @@ If not using phases, or for a complete overview:
 
 ### Step 1: Determine Scenario
 When plan mode is invoked:
-1. Check if `ai-flows/` directory exists, if not create it
-2. Check for existing feature directories
+1. Check if `ai-flows/` directory exists, if not create it (this is the ONLY directory creation allowed)
+2. Check for existing feature directories in `ai-flows/`
 3. Determine which scenario (A, B, or C) applies
 4. Follow the appropriate workflow
 
 ### Step 2: File Discovery
-- Use codebase search to find all relevant files
-- Read key files to understand the project structure
+- **READ ONLY FROM BLOOM-* FOLDERS**: Use codebase search to find all relevant files in `bloom-backend/`, `bloom-ui/`, and `bloom-admin/`
+- Read key files from bloom-* folders to understand the project structure
 - Identify patterns, conventions, and architectural decisions
 - Map dependencies and relationships
+- **DO NOT MODIFY**: Only read files from bloom-* folders, never edit or create files there
 
 ### Step 3: Question Generation
 - Generate questions based on:
-  - Gaps in understanding from file analysis
+  - Gaps in understanding from file analysis (from bloom-* folders)
   - Standard requirement categories
   - Technical considerations
   - User experience aspects
@@ -436,23 +452,23 @@ When plan mode is invoked:
 - Stay within the 5/15/25 question caps and remove or consolidate lower-priority prompts before exceeding them
 - Skip topics covering testing, deployment, documentation updates, or future enhancements
 - Organize questions by category
-- Write to `plan-questions.md` with the proper format including "User Reply: __" placeholders
+- **WRITE TO AI-FLOWS/**: Write to `ai-flows/<feature_name>/plan-questions.md` with the proper format including "User Reply: __" placeholders
 
 ### Step 4: Plan Generation/Update
 - Only proceed when sufficient information is available
 - Assess feature complexity and determine if phase breakdown is needed
 - Create comprehensive, detailed plan
 - If feature is large/complex, organize into phases with detailed plans for each
-- Include file-level details
+- Include file-level details (referencing files in bloom-* folders that will be modified during implementation)
 - Make it actionable and specific
 - Ensure plan text stays within the 100/200/300 line cap, avoids all code snippets, and excludes testing/deployment/documentation/future enhancement content
-- Save to `plan.md`
+- **WRITE TO AI-FLOWS/**: Save to `ai-flows/<feature_name>/plan.md`
 
 ### Step 4a: Todo Extraction
 - Extract all actionable implementation todos from the plan
 - Organize todos by phase (if phased) or by priority/type
-- Include file paths, dependencies, and priorities for each todo
-- Create `todo.md` with structured todos
+- Include file paths (in bloom-* folders), dependencies, and priorities for each todo
+- **WRITE TO AI-FLOWS/**: Create `ai-flows/<feature_name>/todo.md` with structured todos
 - Ensure todos are specific and actionable
 - Keep todos free of code snippets and omit testing, deployment, documentation updates, and future enhancements
 
@@ -483,10 +499,11 @@ Before finalizing a plan, ensure:
 
 1. **Never Skip Questions**: Even if something seems obvious, ask to confirm understanding
 2. **Be Thorough**: Better to over-plan than under-plan
-3. **Stay in Read-Only Mode**: This is planning, not implementation
-4. **Document Everything**: All questions, answers, and decisions should be recorded
-5. **Iterate as Needed**: Planning is iterative - refine based on feedback
-6. **Respect Constraints**: Always honor the question caps, plan line limits, and no-code-snippet rule while excluding testing, deployment, documentation updates, and future enhancements
+3. **Stay in Read-Only Mode for Codebase**: This is planning, not implementation - never modify bloom-* folders
+4. **Write Planning Artifacts**: Create and update files only in `ai-flows/<feature_name>/` folder
+5. **Document Everything**: All questions, answers, and decisions should be recorded in ai-flows/ folder
+6. **Iterate as Needed**: Planning is iterative - refine based on feedback by updating files in ai-flows/ folder
+7. **Respect Constraints**: Always honor the question caps, plan line limits, and no-code-snippet rule while excluding testing, deployment, documentation updates, and future enhancements
 
 ## Example Workflow
 
@@ -494,27 +511,31 @@ Before finalizing a plan, ensure:
 User: "Plan a user authentication feature"
 
 Assistant:
-1. Creates ai-flows/user-authentication/ directory
-2. Analyzes codebase for authentication patterns, user models, etc.
-3. Generates comprehensive questions in plan-questions.md
+1. Creates ai-flows/user-authentication/ directory (WRITE to ai-flows/)
+2. Analyzes codebase for authentication patterns, user models, etc. (READ from bloom-backend/, bloom-ui/)
+3. Generates comprehensive questions in ai-flows/user-authentication/plan-questions.md (WRITE to ai-flows/)
 4. Presents questions to user
 
 User: Fills in "User Reply" sections in plan-questions.md
 
 Assistant:
-1. Reads user-provided answers from "User Reply" sections in plan-questions.md
-2. Creates detailed plan.md with all implementation steps (in phases if large) based on user answers
-3. Extracts todos from plan and creates todo.md
+1. Reads user-provided answers from "User Reply" sections in ai-flows/user-authentication/plan-questions.md (READ from ai-flows/)
+2. Creates detailed ai-flows/user-authentication/plan.md with all implementation steps (in phases if large) based on user answers (WRITE to ai-flows/)
+3. Extracts todos from plan and creates ai-flows/user-authentication/todo.md (WRITE to ai-flows/)
 4. Presents plan and todos
 
 User: Reviews plan and adds comments to review-plan.md
 
 Assistant:
-1. Reads review-plan.md
-2. Updates plan.md based on feedback
+1. Reads ai-flows/user-authentication/review-plan.md (READ from ai-flows/)
+2. Updates ai-flows/user-authentication/plan.md based on feedback (WRITE to ai-flows/)
 3. Presents refined plan
 ```
 
 ---
 
-**Remember**: This is a planning phase. No code should be written. No files should be modified. Only reading and planning documentation creation is allowed.
+**Remember**: This is a planning phase. 
+- **READ-ONLY FOR CODEBASE**: No files in `bloom-backend/`, `bloom-ui/`, or `bloom-admin/` should be modified or created
+- **WRITE-ONLY FOR PLANNING**: Only write and update planning artifacts in `ai-flows/<feature_name>/` folder
+- **NO CODE IMPLEMENTATION**: No code should be written in bloom-* folders during planning phase
+- **ONLY PLANNING DOCUMENTATION**: Only create and update planning documentation (plan.md, plan-questions.md, review-plan.md, todo.md) in ai-flows/ folder
