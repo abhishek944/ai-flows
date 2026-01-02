@@ -1,7 +1,7 @@
 # PLAN MODE - Comprehensive Feature Planning System
 
 ## Overview
-This is a specialized planning mode for AI coding assistants that ensures thorough analysis, exhaustive clarification, and detailed documentation before any implementation begins. The system operates in read-only mode for the codebase (bloom-* folders) to preserve codebase integrity, but can write and update planning artifacts in the ai-flows/ folder.
+This is a specialized planning mode for AI coding assistants that ensures thorough analysis, exhaustive clarification, and detailed documentation before any implementation begins. The system operates in read-only mode for the codebase (<ADD_YOUR_REPO>-* folders) to preserve codebase integrity, but can write and update planning artifacts in the ai-flows/ folder.
 
 ## Core Principles
 
@@ -12,10 +12,10 @@ This is a specialized planning mode for AI coding assistants that ensures thorou
 - **Documentation**: Review existing documentation, comments, and code patterns to understand the project's philosophy
 
 ### 2. Strict Read-Only Mode for Codebase
-- **READ-ONLY FOR BLOOM-* FOLDERS**: Under no circumstances should any file in `bloom-backend/`, `bloom-ui/`, or `bloom-admin/` be modified during planning phase
-- **NO CODEBASE FILE CREATION**: Do not create any files in bloom-* folders
-- **ONLY READING FROM CODEBASE**: Only read files from bloom-* folders to gather information and understand the codebase
-- **PRESERVE CODEBASE INTEGRITY**: Maintain the current state of all files in bloom-* folders without any changes
+- **READ-ONLY FOR <ADD_YOUR_REPO>-* FOLDERS**: Under no circumstances should any file in `<ADD_YOUR_REPO>-backend/`, `<ADD_YOUR_REPO>-frontend/`, or `<ADD_YOUR_REPO>-admin/` be modified during planning phase
+- **NO CODEBASE FILE CREATION**: Do not create any files in <ADD_YOUR_REPO>-* folders
+- **ONLY READING FROM CODEBASE**: Only read files from <ADD_YOUR_REPO>-* folders to gather information and understand the codebase
+- **PRESERVE CODEBASE INTEGRITY**: Maintain the current state of all files in <ADD_YOUR_REPO>-* folders without any changes
 
 ### 2a. Write Access for Planning Artifacts
 - **WRITE ALLOWED IN AI-FLOWS/**: Planning artifacts can be written and updated in `ai-flows/<feature_name>/` folder
@@ -68,8 +68,8 @@ ai-flows/
 
 **Important**: 
 - All planning files are written to `ai-flows/<feature_name>/` folder
-- Never modify files in `bloom-backend/`, `bloom-ui/`, or `bloom-admin/` folders during planning
-- Only read from bloom-* folders to understand the codebase structure and patterns
+- Never modify files in `<ADD_YOUR_REPO>-backend/`, `<ADD_YOUR_REPO>-ui/`, or `<ADD_YOUR_REPO>-admin/` folders during planning
+- Only read from <ADD_YOUR_REPO>-* folders to understand the codebase structure and patterns
 
 ## Content Constraints
 
@@ -98,10 +98,10 @@ This plan command can be invoked in three scenarios. You MUST determine which sc
    - Validate feature name follows naming conventions
 
 2. **Initial Discovery**:
-   - **READ ONLY FROM BLOOM-* FOLDERS**: Search for and read all relevant files in `bloom-backend/`, `bloom-ui/`, and `bloom-admin/`
+   - **READ ONLY FROM <ADD_YOUR_REPO>-* FOLDERS**: Search for and read all relevant files in `<ADD_YOUR_REPO>-backend/`, `<ADD_YOUR_REPO>-ui/`, and `<ADD_YOUR_REPO>-admin/`
    - Understand the project structure, tech stack, and patterns
    - Identify areas that will be affected by the feature
-   - **DO NOT MODIFY**: Only read files, never edit or create files in bloom-* folders
+   - **DO NOT MODIFY**: Only read files, never edit or create files in <ADD_YOUR_REPO>-* folders
 
 3. **Question Generation**:
    - Generate comprehensive questions covering all aspects
@@ -433,15 +433,15 @@ When plan mode is invoked:
 4. Follow the appropriate workflow
 
 ### Step 2: File Discovery
-- **READ ONLY FROM BLOOM-* FOLDERS**: Use codebase search to find all relevant files in `bloom-backend/`, `bloom-ui/`, and `bloom-admin/`
-- Read key files from bloom-* folders to understand the project structure
+- **READ ONLY FROM <ADD_YOUR_REPO>-* FOLDERS**: Use codebase search to find all relevant files in `<ADD_YOUR_REPO>-backend/`, `<ADD_YOUR_REPO>-ui/`, and `<ADD_YOUR_REPO>-admin/`
+- Read key files from <ADD_YOUR_REPO>-* folders to understand the project structure
 - Identify patterns, conventions, and architectural decisions
 - Map dependencies and relationships
-- **DO NOT MODIFY**: Only read files from bloom-* folders, never edit or create files there
+- **DO NOT MODIFY**: Only read files from <ADD_YOUR_REPO>-* folders, never edit or create files there
 
 ### Step 3: Question Generation
 - Generate questions based on:
-  - Gaps in understanding from file analysis (from bloom-* folders)
+  - Gaps in understanding from file analysis (from <ADD_YOUR_REPO>-* folders)
   - Standard requirement categories
   - Technical considerations
   - User experience aspects
@@ -459,7 +459,7 @@ When plan mode is invoked:
 - Assess feature complexity and determine if phase breakdown is needed
 - Create comprehensive, detailed plan
 - If feature is large/complex, organize into phases with detailed plans for each
-- Include file-level details (referencing files in bloom-* folders that will be modified during implementation)
+- Include file-level details (referencing files in <ADD_YOUR_REPO>-* folders that will be modified during implementation)
 - Make it actionable and specific
 - Ensure plan text stays within the 100/200/300 line cap, avoids all code snippets, and excludes testing/deployment/documentation/future enhancement content
 - **WRITE TO AI-FLOWS/**: Save to `ai-flows/<feature_name>/plan.md`
@@ -467,7 +467,7 @@ When plan mode is invoked:
 ### Step 4a: Todo Extraction
 - Extract all actionable implementation todos from the plan
 - Organize todos by phase (if phased) or by priority/type
-- Include file paths (in bloom-* folders), dependencies, and priorities for each todo
+- Include file paths (in <ADD_YOUR_REPO>-* folders), dependencies, and priorities for each todo
 - **WRITE TO AI-FLOWS/**: Create `ai-flows/<feature_name>/todo.md` with structured todos
 - Ensure todos are specific and actionable
 - Keep todos free of code snippets and omit testing, deployment, documentation updates, and future enhancements
@@ -499,7 +499,7 @@ Before finalizing a plan, ensure:
 
 1. **Never Skip Questions**: Even if something seems obvious, ask to confirm understanding
 2. **Be Thorough**: Better to over-plan than under-plan
-3. **Stay in Read-Only Mode for Codebase**: This is planning, not implementation - never modify bloom-* folders
+3. **Stay in Read-Only Mode for Codebase**: This is planning, not implementation - never modify <ADD_YOUR_REPO>-* folders
 4. **Write Planning Artifacts**: Create and update files only in `ai-flows/<feature_name>/` folder
 5. **Document Everything**: All questions, answers, and decisions should be recorded in ai-flows/ folder
 6. **Iterate as Needed**: Planning is iterative - refine based on feedback by updating files in ai-flows/ folder
@@ -512,7 +512,7 @@ User: "Plan a user authentication feature"
 
 Assistant:
 1. Creates ai-flows/user-authentication/ directory (WRITE to ai-flows/)
-2. Analyzes codebase for authentication patterns, user models, etc. (READ from bloom-backend/, bloom-ui/)
+2. Analyzes codebase for authentication patterns, user models, etc. (READ from <ADD_YOUR_REPO>-backend/, <ADD_YOUR_REPO>-ui/)
 3. Generates comprehensive questions in ai-flows/user-authentication/plan-questions.md (WRITE to ai-flows/)
 4. Presents questions to user
 
@@ -535,7 +535,7 @@ Assistant:
 ---
 
 **Remember**: This is a planning phase. 
-- **READ-ONLY FOR CODEBASE**: No files in `bloom-backend/`, `bloom-ui/`, or `bloom-admin/` should be modified or created
+- **READ-ONLY FOR CODEBASE**: No files in `<ADD_YOUR_REPO>-backend/`, `<ADD_YOUR_REPO>-ui/`, or `<ADD_YOUR_REPO>-admin/` should be modified or created
 - **WRITE-ONLY FOR PLANNING**: Only write and update planning artifacts in `ai-flows/<feature_name>/` folder
-- **NO CODE IMPLEMENTATION**: No code should be written in bloom-* folders during planning phase
+- **NO CODE IMPLEMENTATION**: No code should be written in <ADD_YOUR_REPO>-* folders during planning phase
 - **ONLY PLANNING DOCUMENTATION**: Only create and update planning documentation (plan.md, plan-questions.md, review-plan.md, todo.md) in ai-flows/ folder
