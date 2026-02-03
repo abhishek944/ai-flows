@@ -22,7 +22,7 @@ Planning mode for AI coding assistants: thorough analysis, clarification, and do
 
 3. **Write Access for Planning** — Create and update only in `ai-flows/<feature_name>/`: `plan.md`, `plan-questions.md`, `review-plan.md`, `todo.md`. Create the feature directory if needed.
 
-4. **Exhaustive Questioning** — Ask comprehensive questions before planning. No assumptions. Include multiple choice when applicable. **User answers only** — agent MUST NOT fill "User Reply" sections. Question caps: Easy 5, Medium 15, Big 25. Document in `plan-questions.md` with "User Reply: __".
+4. **Exhaustive Questioning** — Ask comprehensive questions before planning. No assumptions. **Use multiple choice for every question**: each question MUST list options (e.g. a), b), c), d) Other — please specify). Prefer multiple choice; use open-ended "User Reply: __" only when options truly cannot be listed. **User answers only** — agent MUST NOT fill "User Reply" sections. Question caps: Easy 5, Medium 15, Big 25. Document in `plan-questions.md` with "User Reply: __".
 
 5. **Feature Naming** — **Auto-set** the feature name from the user's request. Do not ask the user for a feature name. Infer a short, descriptive name (lowercase or camelCase; no spaces; underscores/hyphens allowed). Put `FEATURE: <feature_name>` at top of plan. Example: user says "plan login" → `userLogin` or `login`.
 
@@ -51,7 +51,7 @@ Determine which applies and follow its workflow.
 
 1. **Set feature name** — Infer from user request; do not ask. Use lowercase or camelCase, no spaces; underscores/hyphens allowed. Create `ai-flows/<feature_name>/` using this name.
 2. **Initial discovery** — Read only from `<ADD_YOUR_REPO>-*`; understand structure, stack, affected areas. Do not modify codebase.
-3. **Questions** — Generate questions (with caps 5/15/25); add "User Reply: __"; write to `ai-flows/<feature_name>/plan-questions.md`. Exclude testing/deployment/docs/future. Present and wait for user.
+3. **Questions** — Generate questions (with caps 5/15/25). **Each question MUST include multiple choice options** (e.g. a), b), c), d) Other — please specify). Add "User Reply: __" after options. Write to `ai-flows/<feature_name>/plan-questions.md`. Exclude testing/deployment/docs/future. Present and wait for user.
 4. **Plan** (after user answers) — Read "User Reply" from plan-questions.md. Create `ai-flows/<feature_name>/` if needed. Write `plan.md` (FEATURE header, within line cap, no code). If large, use phases. Write `todo.md` from plan. Exclude testing/deployment/docs/future from plan and todos.
 
 ### Scenario B: Questions Answered
@@ -59,14 +59,14 @@ Determine which applies and follow its workflow.
 
 1. **Read** — plan-questions.md and any existing plan.md.
 2. **Process answers** — Use only user-provided "User Reply" content; do not fill answers yourself.
-3. **Follow-ups** — If unclear, add questions to plan-questions.md (within caps); wait if needed.
+3. **Follow-ups** — If unclear, add questions to plan-questions.md (within caps); **each with multiple choice options**; wait if needed.
 4. **Plan** — Create or update plan.md from answers; respect line cap and no-code rule. Update todo.md if plan structure changed.
 
 ### Scenario C: Review Comments Provided
 **When:** review-plan.md exists with user feedback.
 
 1. **Read** — review-plan.md and plan.md.
-2. **Questions** — If review raises ambiguities, add to plan-questions.md (within caps); ask user to fill "User Reply" if needed.
+2. **Questions** — If review raises ambiguities, add to plan-questions.md (within caps); **each new question with multiple choice options**; ask user to fill "User Reply" if needed.
 3. **Update** — Modify plan.md per review; update todo.md if steps changed. Stay within line cap and no-code rule.
 
 ## Plan Structure (plan.md)
@@ -90,7 +90,17 @@ No code snippets; describe intent and behavior only.
 
 ## Question File (plan-questions.md)
 
-- Categories (e.g. Requirement, Technical, Design). Each question: text, optional multiple choice, **User Reply: __**. Agent must not fill replies. Stay within 5/15/25 caps. Exclude testing/deployment/docs/future.
+- Categories (e.g. Requirement, Technical, Design). **Every question MUST have multiple choice options** — e.g. a) Option 1, b) Option 2, c) Option 3, d) Other — please specify. Then **User Reply: __**. Do not ask open-ended textual questions; use multiple choice so the user can pick an option. Agent must not fill replies. Stay within 5/15/25 caps. Exclude testing/deployment/docs/future.
+
+**Required format per question:**
+```
+1. [Question text]
+   - a) [Option 1]
+   - b) [Option 2]
+   - c) [Option 3]
+   - d) Other — please specify
+   - User Reply: __
+```
 
 ## Review File (review-plan.md)
 
@@ -104,13 +114,13 @@ Sections: General Feedback; Section-Specific Feedback; Action Items (checkboxes)
 
 1. **Determine scenario** — Check ai-flows/ and feature dir; choose A, B, or C.
 2. **Discovery** — Read only from `<ADD_YOUR_REPO>-*`; map patterns and dependencies. Do not modify.
-3. **Questions** — Generate within caps; "User Reply: __"; write to plan-questions.md. No self-answers.
+3. **Questions** — Generate within caps; **each question with multiple choice options (a, b, c, …)**; then "User Reply: __"; write to plan-questions.md. No self-answers.
 4. **Plan** — Create/update plan.md (line cap, no code); extract todo.md.
 5. **Present** — Show plan/questions; wait for user input.
 
 ## Quality Checklist
 
-- Feature name at top; relevant files analyzed; questions within caps; plan detailed and within line cap; no code in plan/todos; todos in todo.md; scope excludes testing/deployment/docs/future.
+- Feature name at top; relevant files analyzed; **every question has multiple choice options**; questions within caps; plan detailed and within line cap; no code in plan/todos; todos in todo.md; scope excludes testing/deployment/docs/future.
 
 ## Important Notes
 
