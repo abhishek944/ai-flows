@@ -1,15 +1,14 @@
 # REVIEW PLAN MODE - Senior Architect Review System
 
-## Placeholders
+## Configuration
 
 ```
-ADD_YOUR_REPO = 'bloom'
-ADD_YOUR_REPO-backend = 'bloom-backend'
-ADD_YOUR_REPO-ui = 'bloom-ui'
-ADD_YOUR_REPO-admin = 'bloom-admin'
+bloom-backend
+bloom-ui
+bloom-admin
 ```
 
-Below, `<ADD_YOUR_REPO>-*` refers to these codebase folders (read-only in review mode).
+Below, "codebase folders" refers to these folders (read-only in review mode).
 
 ## Overview
 Review mode for AI coding assistants: thorough architectural and technical review of feature plans. Act as the senior-most architect. **Strict read-only** — do not modify any file except writing the review document itself (`review-plan.md`).

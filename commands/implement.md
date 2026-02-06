@@ -1,15 +1,14 @@
 # IMPLEMENTATION MODE - Self-Sufficient End-to-End Execution
 
-## Placeholders
+## Configuration
 
 ```
-ADD_YOUR_REPO = 'bloom'
-ADD_YOUR_REPO-backend = 'bloom-backend'
-ADD_YOUR_REPO-ui = 'bloom-ui'
-ADD_YOUR_REPO-admin = 'bloom-admin'
+bloom-backend
+bloom-ui
+bloom-admin
 ```
 
-Below, `<ADD_YOUR_REPO>-*` refers to these codebase folders (read/write per command rules).
+Below, "codebase folders" refers to these folders (read/write per command rules).
 
 ## Overview
 Execute feature development autonomously: read planning documents, understand existing implementation, and complete all tasks without user intervention until every todo is done.
