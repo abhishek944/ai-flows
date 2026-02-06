@@ -1,24 +1,23 @@
 # PLAN MODE - Comprehensive Feature Planning System
 
-## Placeholders
+## Configuration
 
 ```
-ADD_YOUR_REPO = 'bloom'
-ADD_YOUR_REPO-backend = 'bloom-backend'
-ADD_YOUR_REPO-ui = 'bloom-ui'
-ADD_YOUR_REPO-admin = 'bloom-admin'
+bloom-backend
+bloom-ui
+bloom-admin
 ```
 
-Below, `<ADD_YOUR_REPO>-*` refers to these codebase folders (read-only in plan mode).
+Below, "codebase folders" refers to these folders (read-only in plan mode).
 
 ## Overview
-Planning mode for AI coding assistants: thorough analysis, clarification, and documentation before implementation. **Read-only** for the codebase (`<ADD_YOUR_REPO>-*` folders); **write** only to `ai-flows/<feature_name>/` for planning artifacts.
+Planning mode for AI coding assistants: thorough analysis, clarification, and documentation before implementation. **Read-only** for the codebase (configured codebase folders); **write** only to `ai-flows/<feature_name>/` for planning artifacts.
 
 ## Core Principles
 
 1. **Deep File Analysis** — Read and understand every codebase file related to the feature (structure, patterns, dependencies, conventions). Understand interactions, data flow, and boundaries.
 
-2. **Strict Read-Only for Codebase** — Do not create or modify any file in `<ADD_YOUR_REPO>-backend/`, `<ADD_YOUR_REPO>-ui/`, or `<ADD_YOUR_REPO>-admin/`. Only read from these folders.
+2. **Strict Read-Only for Codebase** — Do not create or modify any file in the configured codebase folders. Only read from them.
 
 3. **Write Access for Planning** — Create and update only in `ai-flows/<feature_name>/`: `plan.md`, `plan-questions.md`, `review-plan.md`, `todo.md`. Create the feature directory if needed.
 
@@ -50,7 +49,7 @@ Determine which applies and follow its workflow.
 **When:** No `ai-flows/<feature_name>/` or no plan.md; user asks for a new plan.
 
 1. **Set feature name** — Infer from user request; do not ask. Use lowercase or camelCase, no spaces; underscores/hyphens allowed. Create `ai-flows/<feature_name>/` using this name.
-2. **Initial discovery** — Read only from `<ADD_YOUR_REPO>-*`; understand structure, stack, affected areas. Do not modify codebase.
+2. **Initial discovery** — Read only from the configured codebase folders; understand structure, stack, affected areas. Do not modify codebase.
 3. **Questions** — Generate questions (with caps 5/15/25). **Each question MUST include multiple choice options** (e.g. a), b), c), d) Other — please specify). Add "User Reply: __" after options. Write to `ai-flows/<feature_name>/plan-questions.md`. Exclude testing/deployment/docs/future. Present and wait for user.
 4. **Plan** (after user answers) — Read "User Reply" from plan-questions.md. Create `ai-flows/<feature_name>/` if needed. Write `plan.md` (FEATURE header, within line cap, no code). If large, use phases. Write `todo.md` from plan. Exclude testing/deployment/docs/future from plan and todos.
 
@@ -113,7 +112,7 @@ Sections: General Feedback; Section-Specific Feedback; Action Items (checkboxes)
 ## Execution Protocol
 
 1. **Determine scenario** — Check ai-flows/ and feature dir; choose A, B, or C.
-2. **Discovery** — Read only from `<ADD_YOUR_REPO>-*`; map patterns and dependencies. Do not modify.
+2. **Discovery** — Read only from the configured codebase folders; map patterns and dependencies. Do not modify.
 3. **Questions** — Generate within caps; **each question with multiple choice options (a, b, c, …)**; then "User Reply: __"; write to plan-questions.md. No self-answers.
 4. **Plan** — Create/update plan.md (line cap, no code); extract todo.md.
 5. **Present** — Show plan/questions; wait for user input.
